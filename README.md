@@ -13,6 +13,11 @@ Microsoft chatbot build using NLTK-Chatbot and django
 4. in shell prompt run
   ```sh
   sudo pip install -U django
+  git clone https://github.com/ahmadfaizalbh/Chatbot.git
+  cd Chatbot
+  sudo setup.py install
+  cd ../
+  pip install wikipedia,mock,py_execute
   git clone https://github.com/ahmadfaizalbh/django-background-tasks.git
   cd django-background-tasks
   sudo python setup.py develop
