@@ -5,9 +5,9 @@ import json,wikipedia,urllib,os
 from chatbot import Chat,reflections,multiFunctionCall
 from .models import *
 from django.db.utils import OperationalError,ProgrammingError
+
 from background_task import background
 import requests,datetime
-
 # Create your views here.
 
 
