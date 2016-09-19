@@ -27,7 +27,7 @@ Microsoft chatbot build using NLTK-Chatbot and django
   python manage.py makemigrations
   python manage.py migrate
   ```
-5. Insrall postgress follow the instruction in [How to install and use postgresql on ubuntu 14.04](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-postgresql-on-ubuntu-14-04)
+5. Insrall postgreSQL follow the instruction in page [How to install and use postgresql on ubuntu 14.04](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-postgresql-on-ubuntu-14-04)
 6. create DB `chatbot` with username `app_user` and password `InfoBotPassword` or change the credential in settings as per your configuration
 7. run `python manage.py process_tasks` in background (put it in `/etc/rc.local` with appropriate path to python and manage.py)
 8. configure apache2 config file for this project
