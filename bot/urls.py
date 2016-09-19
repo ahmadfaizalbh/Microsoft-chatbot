@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
-from .views import *
+from msbot.views import *
 urlpatterns = [
     url(r'^$',index,name="Home"),
     url(r'^messaging',webhook,name="webhook"),
