@@ -141,8 +141,7 @@ class UserConversation:
         
     def pop(self):
         try:
-            Conversation.objects.filter(sender__messengerSenderID=self.senderID)
-            conv = convs.order_by('-id')[0]
+            conv = Conversation.objects.filter(sender__messengerSenderID=self.senderID).order_by('-id')[0]
             message = conv.message
             conv.delete()
             return message
