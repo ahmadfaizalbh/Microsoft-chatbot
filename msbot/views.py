@@ -282,7 +282,7 @@ def respondToClient(data):
     conversationID = data["id"]
     message = data["text"]
     senderID = data["conversation"]["id"]
-    chat.attr[senderID]={"match":None,"pmatch":None}
+    chat.attr[senderID]={"match":None,"pmatch":None,"_quote": False}
     chat.conversation[senderID].append(message)
     message = message.rstrip(".! \n\t")
     result = chat.respond(message,sessionID=senderID)
