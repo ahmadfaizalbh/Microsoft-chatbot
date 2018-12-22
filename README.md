@@ -16,6 +16,11 @@ Microsoft chatbot build using NLTK-Chatbot and django
   app_client_secret = `<Microsoft App Secret>`
   ```
 6. create DB `chatbot` with username `app_user` and password `InfoBotPassword` in postgreSQL or change the credential in settings as per your configuration
+  ```sql
+  create database chatbot;
+  create user app_user with encrypted password 'InfoBotPassword';
+  grant all privileges on database app_user to myuser;
+  ```
 7. in shell prompt run  
   ```sh
   cd Microsoft-chatbot
@@ -23,11 +28,6 @@ Microsoft chatbot build using NLTK-Chatbot and django
   python3 manage.py migrate
   ```
 8. run `python manage.py process_tasks` in background (put it in `/etc/rc.local` with appropriate path to python and manage.py)
-  ```sql
-  create database chatbot;
-  create user app_user with encrypted password 'InfoBotPassword';
-  grant all privileges on database app_user to myuser;
-  ```
 9. configure apache2 config file for this project
 10. install [Let's Encrypt](https://letsencrypt.org/)
 11. restart server
