@@ -17,47 +17,7 @@ app_client_secret = `<Microsoft App Secret>`
 def index(request):
     return render(request,"index.html")
 
-def about(query,qtype=None):
-    service_url = 'https://kgsearch.googleapis.com/v1/entities:search'
-    params = {
-        'query': query,
-        'limit': 10,
-        'indent': True,
-        'key': api_key,
-    }
-    url = service_url + '?' + urllib.urlencode(params)
-    response = json.loads(urllib.urlopen(url).read())
-    if not len(response['itemListElement']):
-        return "sorry, I don't know about "+query +"\nIf you know about "+query+" please tell me."
-    result = ""
-    if len(response['itemListElement'])==1:
-        if "detailedDescription" in response['itemListElement'][0]['result']:
-            return response['itemListElement'][0]['result']['detailedDescription']["articleBody"]
-        else:
-            return response['itemListElement'][0]['result']['name'] +" is a " +\
-                   response['itemListElement'][0]['result']["description"]
-    for element in response['itemListElement']:
-      try:result += element['result']['name'] + "->" +element['result']["description"]+"\n"
-      except:pass
-    return result
-
-def getType(l):
-    try:
-        l.remove("Thing")
-        return "("+l[0]+")"
-    except:
-        return ""
-
-def tellMeAbout(query,sessionID="general"):
-    return about(query)
-
 def whoIs(query,sessionID="general"):
-    return about(query,qtype="Person")
-
-def whereIs(query,sessionID="general"):
-    return about(query,qtype="Place")
-
-def whatIs(query,sessionID="general"):
     try:
         return wikipedia.summary(query)
     except:
@@ -68,10 +28,7 @@ def whatIs(query,sessionID="general"):
                 pass
     return about(query)
 
-call = multiFunctionCall({"whoIs":whoIs,
-                          "whatIs":whatIs,
-                          "whereIs":whereIs,
-                          "tellMeAbout":tellMeAbout})
+call = multiFunctionCall({"whoIs":whoIs})
 
 class UserMemory:
 
@@ -92,7 +49,7 @@ class UserMemory:
             Memory.objects.create(sender__messengerSenderID=self.senderID,key=key,value=value)
 
     def update(self, *args, **kwargs):
-        for k, v in dict(*args, **kwargs).iteritems():
+        for k, v in dict(*args, **kwargs).items():
             self[k] = v
     
     def __delitem__(self, key):
@@ -168,7 +125,7 @@ class UserTopic:
         except:Sender.objects.create(messengerSenderID=senderID,topic = topic)
     
     def update(self, *args, **kwargs):
-        for k, v in dict(*args, **kwargs).iteritems():
+        for k, v in dict(*args, **kwargs).items():
             self[k] = v
     
     def __delitem__(self, senderID):
@@ -194,7 +151,7 @@ class UserSession:
         self.objClass(senderID,val)
 
     def update(self, *args, **kwargs):
-        for k, v in dict(*args, **kwargs).iteritems():
+        for k, v in dict(*args, **kwargs).items():
             self[k] = v
     
     def __delitem__(self, senderID):
@@ -212,25 +169,22 @@ class myChat(Chat):
         self._memory = UserSession(UserMemory,self._memory)
         self.conversation = UserSession(UserConversation,self.conversation)
         self.topic.topic = UserTopic(self.topic.topic)
-        #self._pairs = {'*':[]}
-        #self._reflections = reflections
-        #self._regex = self._compile_reflections()
-    
-try:
-    chat=myChat(os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                           "chatbotTemplate",
-                           "Example.template"
-                           ),
-              reflections,
-              call=call)
+        
+    def startNewSession(self,*arg,**karg):
+        return self._startNewSession(*arg,**karg)
 
-except (OperationalError,ProgrammingError):#No DB exist
-    chat =  Chat(os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                           "chatbotTemplate",
-                           "Example.template"
-                           ),
-              reflections,
-              call=call)
+def initiate_chat(*arg,**karg):  
+  try:return myChat(*arg,**karg)
+  except (OperationalError,ProgrammingError):#No DB exist
+      print("error")
+      return Chat(*arg,**karg)
+
+chat =  initiate_chat(os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                             "chatbotTemplate",
+                             "Example.template"
+                             ),
+                reflections,
+                call=call)
 
 
 def respond(serviceUrl,channelId,replyToId,fromData,
@@ -266,7 +220,7 @@ def initiateChat(data):
     conversationID = data["id"]
     message = 'Welcome to NLTK-Chat demo.'
     senderID = data["conversation"]["id"]
-    chat._startNewSession(senderID)
+    chat.startNewSession(senderID)
     chat.conversation[senderID].append(message)
     respond(data["serviceUrl"],
             data["channelId"],
@@ -282,7 +236,7 @@ def respondToClient(data):
     conversationID = data["id"]
     message = data["text"]
     senderID = data["conversation"]["id"]
-    chat.attr[senderID]={"match":None,"pmatch":None,"_quote": False}
+    chat.attr[senderID]={'match': None, 'pmatch': None, '_quote': False, 'substitute': True}
     chat.conversation[senderID].append(message)
     message = message.rstrip(".! \n\t")
     result = chat.respond(message,sessionID=senderID)
