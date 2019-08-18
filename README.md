@@ -5,7 +5,7 @@ Microsoft chatbot build using NLTK-Chatbot and django
 1. Install postgreSQL follow the instruction in page [How to install and use postgresql on ubuntu 14.04](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-postgresql-on-ubuntu-14-04)
 2. in shell prompt run
   ```sh
-  sudo pip3 install -U django chatbotAI psycopg2-binary django-background-tasks wikipedia
+  pip install -r requirements.txt
   git clone https://github.com/ahmadfaizalbh/Microsoft-chatbot.git
   ```
 3. Go to [https://dev.botframework.com/bots](https://dev.botframework.com/bots)
