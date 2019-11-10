@@ -214,7 +214,7 @@ def respond(service_url, reply_to_id, from_data,
         "grant_type": "client_credentials",
         "client_id": app_client_id,
         "client_secret": app_client_secret,
-        "scope": "https://graph.microsoft.com/.default"
+        "scope": "https://api.botframework.com/.default"
     }
     response = requests.post(url, data)
     response_data = response.json()
