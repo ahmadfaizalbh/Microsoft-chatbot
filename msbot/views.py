@@ -14,10 +14,6 @@ import os
 # Create your views here.
 
 
-app_client_id = "<Microsoft App ID>"
-app_client_secret = "<Microsoft App Secret>"
-
-
 def home(request):
     return render(request, "index.html")
 
@@ -25,6 +21,8 @@ def home(request):
 def who_is(query, sessionID="general"):
     try:
         return wikipedia.summary(query)
+    except requests.exceptions.SSLError:
+        return "Sorry I could not search online due to SSL error"
     except:
         pass
     for new_query in wikipedia.search(query):
@@ -209,15 +207,23 @@ chat = initiate_chat(os.path.join(os.path.dirname(os.path.abspath(__file__)),
 
 def respond(service_url, reply_to_id, from_data,
             recipient_data, message, message_type, conversation):
-    url = "https://login.microsoftonline.com/common/oauth2/v2.0/token"
-    data = {
-        "grant_type": "client_credentials",
-        "client_id": app_client_id,
-        "client_secret": app_client_secret,
-        "scope": "https://api.botframework.com/.default"
-    }
-    response = requests.post(url, data)
-    response_data = response.json()
+    if app_client_id != "<Microsoft App ID>":
+        url = "https://login.microsoftonline.com/common/oauth2/v2.0/token"
+        data = {
+            "grant_type": "client_credentials",
+            "client_id": app_client_id,
+            "client_secret": app_client_secret,
+            "scope": "https://api.botframework.com/.default"
+        }
+        response = requests.post(url, data)
+        response_data = response.json()
+        headers = {
+            "Authorization": "%s %s" % (response_data["token_type"], response_data["access_token"])
+        }
+    else:
+        headers = {}
+    if service_url[-1] != "/":
+        service_url += "/"
     response_url = service_url + "v3/conversations/%s/activities/%s" % (conversation["id"], reply_to_id)
     requests.post(
         response_url,
@@ -230,9 +236,7 @@ def respond(service_url, reply_to_id, from_data,
             "text": message,
             "replyToId": reply_to_id
         },
-        headers={
-            "Authorization": "%s %s" % (response_data["token_type"], response_data["access_token"])
-        }
+        headers=headers
     )
 
 
