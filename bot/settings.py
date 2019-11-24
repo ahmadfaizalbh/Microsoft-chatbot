@@ -124,3 +124,4 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 BACKGROUND_TASK_RUN_ASYNC = True
+STATIC_ROOT = os.path.join(BASE_DIR, "static/")

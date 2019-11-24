@@ -19,7 +19,7 @@ Microsoft chatbot build using NLTK-Chatbot and django
   ```sql
   create database chatbot;
   create user app_user with encrypted password 'InfoBotPassword';
-  grant all privileges on database app_user to myuser;
+  grant all privileges on database chatbot to app_user;
   ```
 7. in shell prompt run  
   ```sh

@@ -17,7 +17,7 @@ from django.urls import path
 from django.contrib import admin
 from msbot.views import *
 urlpatterns = [
-    path(r'^$', home, name="Home"),
-    path(r'^messaging', web_hook, name="web_hook"),
-    path(r'^admin/', admin.site.urls),
+    path(r'messaging/', web_hook, name="web_hook"),
+    path(r'admin/', admin.site.urls),
+    path(r'', home, name="Home"),
 ]
