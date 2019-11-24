@@ -1,7 +1,7 @@
 # Microsoft-chatbot
 Microsoft chatbot build using NLTK-Chatbot and django
 
-# To Running in Microsoft Bot Emulator
+# To Running This App in Microsoft Bot Emulator
 1. [Download Emulator](https://c2rsetup.officeapps.live.com/c2r/download.aspx?productReleaseID=O365ProPlusRetail&platform=Def&language=en-us&TaxRegion=sg&correlationId=af2dda53-a9e9-49ef-8077-1164dfa45dd5&token=0a28bd4e-8b5b-4b39-bf26-bafa58a196cb&version=O16GA&source=O15OLSO365&Br=4)
 2. Install Emulator
 3. `Microsoft-chatbot/bot/settings.py` set `DEBUG = True`
@@ -24,7 +24,7 @@ Microsoft chatbot build using NLTK-Chatbot and django
     
 
 
-## To Run This App Production
+## To Run This App in Production
 1. Install postgreSQL follow the instruction in page [How to install and use postgresql on ubuntu 14.04](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-postgresql-on-ubuntu-14-04)
 2. in shell prompt run  
    ```sh
@@ -35,8 +35,8 @@ Microsoft chatbot build using NLTK-Chatbot and django
 5. Generate <Microsoft App Secret> and then update below lines in `Microsoft-chatbot/bot/settings.py`
    ```python
     DEBUG = False
-    app_client_id = `<Microsoft App ID>`
-    app_client_secret = `<Microsoft App Secret>`
+    APP_CLIENT_ID = `<Microsoft App ID>`
+    APP_CLIENT_SECRET = `<Microsoft App Secret>`
    ```
 6. in `Microsoft-chatbot/bot/settings.py` also set `ALLOWED_HOSTS` with list of domain names
 7. create DB `chatbot` with username `app_user` and password `InfoBotPassword` in postgreSQL or change the credential in settings as per your configuration

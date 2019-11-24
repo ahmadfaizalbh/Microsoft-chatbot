@@ -23,10 +23,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'zy1t%c4rgs1k^b%pa88v-7pqh0v-jw8y(n@y+446ung$!r=hd&'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-app_client_id = "<Microsoft App ID>"
-app_client_secret = "<Microsoft App Secret>"
+APP_CLIENT_ID = "<Microsoft App ID>"
+APP_CLIENT_SECRET = "<Microsoft App Secret>"
 
 ALLOWED_HOSTS = ['*']
 
