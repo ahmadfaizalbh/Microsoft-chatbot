@@ -4,8 +4,7 @@ Microsoft chatbot build using NLTK-Chatbot and django
 # To Running This App in Microsoft Bot Emulator
 1. [Download Emulator](https://c2rsetup.officeapps.live.com/c2r/download.aspx?productReleaseID=O365ProPlusRetail&platform=Def&language=en-us&TaxRegion=sg&correlationId=af2dda53-a9e9-49ef-8077-1164dfa45dd5&token=0a28bd4e-8b5b-4b39-bf26-bafa58a196cb&version=O16GA&source=O15OLSO365&Br=4)
 2. Install Emulator
-3. `Microsoft-chatbot/bot/settings.py` set `DEBUG = True`
-4. in command prompt
+3. in command prompt
    ```sh
     git clone https://github.com/ahmadfaizalbh/Microsoft-chatbot.git
     cd Microsoft-chatbot
@@ -13,10 +12,11 @@ Microsoft chatbot build using NLTK-Chatbot and django
     python manage.py migrate
     python manage.py runserver
    ```
+4. `Microsoft-chatbot/bot/settings.py` set `DEBUG = True`
 5. open another command prompt and execute the following
    ```sh
     cd Microsoft-chatbot
-    python manage.py runserver
+    python manage.py process_tasks
    ```
 6. open Emulator
 7. Add an endpoint for your bot with Endpoint url `http://localhost:8000/messaging/` and name `localhost` and save
