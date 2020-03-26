@@ -8,7 +8,7 @@ Microsoft chatbot build using NLTK-Chatbot and django
    ```sh
     git clone https://github.com/ahmadfaizalbh/Microsoft-chatbot.git
     cd Microsoft-chatbot
-    pip install -r requirement.txt
+    pip install -r requirements.txt
     python manage.py makemigrations
     python manage.py migrate
     python manage.py runserver
