@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'background_task',
+    'django.chatbot',
     "msbot",
 ]
 
@@ -137,3 +138,6 @@ STATIC_URL = '/static/'
 BACKGROUND_TASK_RUN_ASYNC = True
 STATIC_ROOT = os.path.join(BASE_DIR, "static/")
 APPEND_SLASH = False
+
+CHATBOT_TEMPLATE = os.path.join(BASE_DIR, "chatbotTemplate", "msbot.template")
+

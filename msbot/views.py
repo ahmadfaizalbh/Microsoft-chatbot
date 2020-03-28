@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
-from chatbot import reflections, multiFunctionCall
-from .handler import initiate_chat
+from django.chatbot import chat
+from chatbot import register_call
 from background_task import background
 from django.conf import settings
 import requests
@@ -18,7 +18,8 @@ def home(request):
     return render(request, "index.html")
 
 
-def who_is(query, sessionID="general"):
+@register_call("whoIs")
+def who_is(query, session_id="general"):
     try:
         return wikipedia.summary(query)
     except requests.exceptions.SSLError:
@@ -31,14 +32,6 @@ def who_is(query, sessionID="general"):
         except:
             pass
     return "Sorry I could not find any data related to '%s'" % query
-
-
-chat = initiate_chat(os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                                  "chatbotTemplate",
-                                  "Example.template"
-                                  ),
-                     reflections,
-                     call=multiFunctionCall({"whoIs": who_is}))
 
 
 def respond(service_url, reply_to_id, from_data,
@@ -100,7 +93,7 @@ def respond_to_client(data):
     chat.attr[sender_id] = {'match': None, 'pmatch': None, '_quote': False, 'substitute': True}
     chat.conversation[sender_id].append(message)
     message = message.rstrip(".! \n\t")
-    result = chat.respond(message, sessionID=sender_id)
+    result = chat.respond(message, session_id=sender_id)
     chat.conversation[sender_id].append(result)
     respond(
         data["serviceUrl"],
