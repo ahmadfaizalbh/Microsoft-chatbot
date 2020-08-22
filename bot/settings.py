@@ -139,5 +139,6 @@ BACKGROUND_TASK_RUN_ASYNC = True
 STATIC_ROOT = os.path.join(BASE_DIR, "static/")
 APPEND_SLASH = False
 
+START_MESSAGE = "Welcome to ChatBotAI"
 CHATBOT_TEMPLATE = os.path.join(BASE_DIR, "chatbotTemplate", "msbot.template")
 

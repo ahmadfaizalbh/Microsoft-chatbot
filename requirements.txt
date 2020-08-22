@@ -1,5 +1,5 @@
 chatbotAI==0.2.1.1
-django-chatbot==0.0.1
+django-chatbot==0.0.2.1
 Django==2.2.13
 django-background-tasks==1.2.0
 requests==2.22.0

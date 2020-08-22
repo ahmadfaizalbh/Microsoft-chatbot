@@ -15,9 +15,10 @@ Including another URLconf
 """
 from django.urls import path
 from django.contrib import admin
-from msbot.views import *
+from msbot.views import home
+from django.chatbot.views import botframework
 urlpatterns = [
-    path(r'messaging/', web_hook, name="web_hook"),
+    path(r'messaging/', botframework.web_hook, name="web_hook"),
     path(r'admin/', admin.site.urls),
     path(r'', home, name="Home"),
 ]
